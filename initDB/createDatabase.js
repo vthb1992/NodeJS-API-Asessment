@@ -16,7 +16,7 @@ connection.connect(function(error) {
     console.log("MySQL connected!");
   
     // Create new database
-    connection.query("CREATE DATABASE " + dbConfig.DATABASE, function (err, result) {
+    connection.query("CREATE DATABASE " + dbConfig.DATABASE, function(err, result) {
         if (error) throw error;
         console.log("Database \"school\" created successfully!");
         process.exit();

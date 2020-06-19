@@ -35,13 +35,13 @@ connection.connect(function(error) {
                 "FOREIGN KEY (teacher_email_address) REFERENCES tb_teacher (email_address)," + 
                 "FOREIGN KEY (student_email_address) REFERENCES tb_student (email_address))";
 
-    connection.query(sql1, function (error, result) {
+    connection.query(sql1, function(error, result) {
         if (error) throw error;
         console.log("tb_teacher created!");
-        connection.query(sql2, function (error, result) {
+        connection.query(sql2, function(error, result) {
             if (error) throw error;
             console.log("tb_student created!");
-            connection.query(sql3, function (error, result) {
+            connection.query(sql3, function(error, result) {
                 if (error) throw error;
                 console.log("tb_registration created!");
                 process.exit();

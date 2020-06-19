@@ -8,13 +8,12 @@ module.exports = function(app) {
     app.route(apiEndpoint + 'register')
         .post(appController.register);
     
-    /*app.route(apiEndpoint + 'commonstudents')
-        .get(appController.create_a_task);
-
     app.route(apiEndpoint + 'suspend')
-        .post(appController.create_a_task);
-    
+        .post(appController.suspend);
+
+    /*app.route(apiEndpoint + 'commonstudents')
+        .get(appController.commonstudents);*/
+
     app.route(apiEndpoint + 'retrievefornotifications')
-        .post(appController.create_a_task);*/
-        
+        .post(appController.retrieveForNotifications);
 };
