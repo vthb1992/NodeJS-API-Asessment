@@ -1,5 +1,8 @@
+"use strict";
+
 module.exports = {
     HOST: "localhost",
     USER: "root",
-    PASSWORD: "password"
+    PASSWORD: "password",
+    DATABASE: "school"
   };
