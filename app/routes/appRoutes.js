@@ -7,12 +7,12 @@ module.exports = function(app) {
     // List of Routes
     app.route(apiEndpoint + 'register')
         .post(appController.register);
+
+    app.route(apiEndpoint + 'commonstudents')
+        .get(appController.commonStudents);
     
     app.route(apiEndpoint + 'suspend')
         .post(appController.suspend);
-
-    /*app.route(apiEndpoint + 'commonstudents')
-        .get(appController.commonstudents);*/
 
     app.route(apiEndpoint + 'retrievefornotifications')
         .post(appController.retrieveForNotifications);

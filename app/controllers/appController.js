@@ -50,6 +50,73 @@ exports.register = function(request, response) {
     }
 };
 
+exports.commonStudents = function(request, response) {
+    var teachers = request.query.teacher;
+
+    // Validation for request query parameters
+    if (teachers == undefined) {
+        response.status(400).send({ message: 'Please provide at least one email address of a teacher to retrieve the list of common students.' });
+    } else if (!Array.isArray(teachers) && !emailValidator.validate(teachers)) {
+        response.status(400).send({ message: 'The email address is invalid.' });
+    } else if (Array.isArray(teachers) && !validateListOfEmails(teachers)) {
+        response.status(400).send({ message: 'At least one of the email addresses are invalid.' });
+    } else {
+        if (!Array.isArray(teachers)) {
+            teachers = teachers.split();
+        }
+
+        let checkExistPromises = [];
+
+        // Check if teachers' email address exist
+        for (let i = 0; i < teachers.length; i++) {
+            checkExistPromises.push(getTeacherByEmailAddress(teachers[i]));
+        }
+
+        Promise.all(checkExistPromises)
+        .then((result) => {
+            if (result.includes("Empty")) {
+                response.status(500).send({ message: 'At least one of the teachers\' email address does not exist.' });
+            } else {
+                let getRegistrationPromises = [];
+                
+                // Get all student registrations to each teacher 
+                for (let i = 0; i < teachers.length; i++) {
+                    getRegistrationPromises.push(getRegistrationByTeacherEmailAddress(teachers[i]));
+                }
+                
+                Promise.all(getRegistrationPromises)
+                .then((result) => {
+                    var totalStudentRegistrations = [];
+
+                    for (let i = 0; i < result.length; i++) {
+                        if (result[i].length != 0) {
+                            let studentRegistrationsPerTeacher = [];
+                            for (let j = 0; j < result[i].length; j++) {
+                                studentRegistrationsPerTeacher.push(result[i][j].student_email_address)
+                            }
+                            totalStudentRegistrations.push(studentRegistrationsPerTeacher);
+                        } else {
+                            totalStudentRegistrations.push([]);
+                        }
+                    }
+
+                    // Get list of students who are registered to all the given list of teachers
+                    var commonListOfStudents = totalStudentRegistrations.reduce((a, b) => a.filter(value => b.includes(value)));
+                    console.log("For the given list of teachers with email addresses: " + teachers + ", the common list of students\' email address registered to all given teachers are: " + commonListOfStudents);
+
+                    response.status(200).json({ "students": commonListOfStudents });
+                }).catch((error) => {
+                    console.log(error);
+                    response.status(500).send({ message: 'Internal Server Error.' });
+                })
+            }
+        }).catch((error) => {
+            console.log(error);
+            response.status(500).send({ message: 'Internal Server Error.' });
+        });
+    }
+};
+
 exports.suspend = function(request, response) {
     var student = request.body.student;
 
