@@ -4,7 +4,7 @@ module.exports = function(app) {
     var appController = require('../controllers/appController.js');
     var apiEndpoint = "/api/";
 
-    // List of Routes
+    // List of API routes exposed
     app.route(apiEndpoint + 'register')
         .post(appController.register);
 
