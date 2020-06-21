@@ -4,13 +4,16 @@
   "description": "NodeJS API Assessment",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "author": "Victor Tan",
   "license": "ISC",
   "dependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
     "email-validator": "^2.0.4",
     "express": "^4.17.1",
+    "mocha": "^8.0.1",
     "mysql": "^2.18.1",
     "promise": "^8.1.0"
   }

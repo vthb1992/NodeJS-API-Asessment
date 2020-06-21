@@ -17,6 +17,16 @@ Student.createStudent = function(student, result) {
     });
 };
 
+Student.deleteStudent = function(student_email_address, result) {
+    mysql.query("DELETE FROM tb_student WHERE email_address = ?", student_email_address, function(error, response){
+        if (error) {
+            result(error, null);
+        } else {
+            result(null, response);
+        }
+    });
+};
+
 Student.getStudentByEmailAddress = function(student_email_address, result) {
     mysql.query("SELECT * FROM tb_student WHERE email_address = ?", student_email_address, function(error, response) {
         if (error) {

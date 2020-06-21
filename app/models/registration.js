@@ -17,6 +17,16 @@ Registration.createRegistration = function(registration, result) {
     });
 };
 
+Registration.deleteRegistration = function(registration, result) {
+    mysql.query("DELETE FROM tb_registration WHERE teacher_email_address = ? AND student_email_address = ?", [registration.teacher_email_address, registration.student_email_address], function(error, response){
+        if (error) {
+            result(error, null);
+        } else {
+            result(null, response);
+        }
+    });
+};
+
 Registration.getRegistrationByEmailAddresses = function(registration, result) {
     mysql.query("SELECT * FROM tb_registration WHERE teacher_email_address = ? AND student_email_address = ?", [registration.teacher_email_address, registration.student_email_address], function(error, response) {
         if (error) {

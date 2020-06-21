@@ -21,3 +21,5 @@ app.use(function(error, request, response, next) {
 });
 
 appRoutes(app);
+
+module.exports = app;

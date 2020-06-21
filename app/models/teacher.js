@@ -17,6 +17,16 @@ Teacher.createTeacher = function(teacher, result) {
     });
 };
 
+Teacher.deleteTeacher = function(teacher_email_address, result) {
+    mysql.query("DELETE FROM tb_teacher WHERE email_address = ?", teacher_email_address, function(error, response){
+        if (error) {
+            result(error, null);
+        } else {
+            result(null, response);
+        }
+    });
+};
+
 Teacher.getTeacherByEmailAddress = function(teacher_email_address, result) {
     mysql.query("SELECT * FROM tb_teacher WHERE email_address = ?", teacher_email_address, function(error, response) {
         if (error) {
