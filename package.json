@@ -13,7 +13,7 @@
     "chai-http": "^4.3.0",
     "email-validator": "^2.0.4",
     "express": "^4.17.1",
-    "mocha": "^8.0.1",
+    "mocha": "^8.4.0",
     "mysql": "^2.18.1",
     "promise": "^8.1.0"
   }
